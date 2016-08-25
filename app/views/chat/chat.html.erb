@@ -1,0 +1,90 @@
+<script type="text/javascript">
+    var socket = new WebSocket("ws://127.0.0.1:3000/chat_handler");
+    var timeout=null;
+    socket.onopen = function() {
+
+        timeout=setInterval(send_list, 5000);
+        alert("connect.");
+    };
+    socket.onclose = function(event) {
+        if (event.wasClean) {
+            alert('close');
+        } else {
+            alert('lose');
+            alert('Code: ' + event.code + ' reas: ' + event.reason);
+        }
+    };
+    socket.onerror = function(error) {
+        alert("error " + error.message);
+    };
+    socket.onmessage = function(event) {
+        var message=event.data;
+        var array_mess=message.split(":");
+        if(array_mess[0]=="list"){
+           document.getElementById("active_users").value=array_mess[1];
+        }else if(array_mess[0]=="broadcast"){
+            var messages=document.getElementById("input_messages").value
+            messages=array_mess[1]+messages;
+            document.getElementById("input_messages").value=messages
+        }else{
+            var messages=document.getElementById("input_messages").value
+            messages=array_mess[0]+":"+array_mess[1]+messages;
+            document.getElementById("input_messages").value=messages
+        }
+
+    };
+
+    function send_messages(){
+         var mess=document.getElementById("output_message").value;
+         document.getElementById("output_message").value="";
+         socket.send(mess);
+    };
+    function disconnect(){
+          socket.send("disconnect:");
+          clearInterval(timeout);
+          socket.close();
+    };
+    function send_list(){
+        socket.send("list:");
+    };
+    function registration(){
+        socket.send("name:"+"<%=@user_login%>");
+    }
+</script>
+
+Hello,<%=@user_login%>
+<from>
+    <input type="button" onclick="registration()"/>
+</from>
+<br>
+<table>
+  <tr>
+    <td>messages</td>
+    <td>Active Users</td>
+  </tr>
+  <tr>
+    <td>
+      <form>
+        <textarea id="input_messages" cols="50" rows="30"></textarea>
+      </form>
+    </td>
+    <td>
+      <form>
+        <textarea id="active_users" cols="20" rows="30"></textarea>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <form>
+        <input type="text" id="output_message"/>
+        <input type="button" onclick="send_messages()" value="send"/>
+      </form>
+    </td>
+    <td>
+      <form>
+        <input type="button" onclick="disconnect()" value="exit"/>
+      </form>
+    </td>
+  </tr>
+</table>
