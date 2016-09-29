@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe LoginController, type: :controller do
   describe "POST #login_handler" do
-    client = FactoryGirl.create(:client, login: "John", password: "111")
+    client = FactoryGirl.create(:client)
     render_views
 
     describe "with valid credentials" do

@@ -20,8 +20,8 @@ RSpec.describe RegistrationController, type: :controller do
     end
 
     describe "when the old client trying to register with his credentials" do
-      client = FactoryGirl.create(:client, name: "John", login: "John",
-                                  password: "111")
+      client = FactoryGirl.create(:client)
+
       reg_params = { :user_name=>client.name,
                      :user_login=>client.login,
                      :user_password=>client.password }
