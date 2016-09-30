@@ -30,7 +30,7 @@
         }
         else if(array_mess[0]=="broadcast"){
             var messages = document.getElementById("input_messages").value
-            messages = array_mess[1] + messages;
+            messages += array_mess[1];
             document.getElementById("input_messages").value = messages
         }
         else{

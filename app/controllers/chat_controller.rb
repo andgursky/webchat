@@ -35,7 +35,7 @@ class ChatController < ApplicationController
           client_sock.send_data(output)
         elsif(array_mess[0]=="broadcast")
           sockets = $dict_users.values
-          message = "broadcast:" + array_mess[1]
+          message = "broadcast:" + array_mess[1] + "\n"
           sockets.each{ |socket| socket.send_data(message) }
         elsif(array_mess[0]=="disconnect")
           name = $dict_users.index(client_sock)
