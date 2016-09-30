@@ -1,8 +1,9 @@
 <script type="text/javascript">
     var socket = new WebSocket("ws://127.0.0.1:3000/chat_handler");
     var timeout = null;
-    socket.onopen = function() {
 
+    socket.onopen = function() {
+        socket.send("name:"+"<%=@user_login%>");
         timeout = setInterval(send_list, 5000);
         alert("connect.");
     };
@@ -54,20 +55,13 @@
     function send_list(){
         socket.send("list:");
     };
-
-    function registration(){
-        socket.send("name:"+"<%=@user_login%>");
-    }
 </script>
 
 Hello,<%=@user_login%>
-<from>
-    <input type="button" onclick="registration()"/>
-</from>
 <br>
 <table>
   <tr>
-    <td>messages</td>
+    <td>Messages</td>
     <td>Active Users</td>
   </tr>
   <tr>
