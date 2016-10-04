@@ -1,10 +1,11 @@
 <script type="text/javascript">
     var socket = new WebSocket("ws://127.0.0.1:3000/chat_handler");
     var timeout = null;
+    var name = "<%=@user_login%>"
 
     socket.onopen = function() {
-        socket.send("name:"+"<%=@user_login%>");
-        timeout = setInterval(send_list, 5000);
+        socket.send("name:" + name);
+        timeout = setInterval(send_list, 1000);
         alert("connect.");
     };
 
@@ -30,12 +31,12 @@
         }
         else if(array_mess[0]=="broadcast"){
             var messages = document.getElementById("input_messages").value
-            messages += array_mess[1];
+            messages += name + ": " + array_mess[1];
             document.getElementById("input_messages").value = messages
         }
         else{
             var messages = document.getElementById("input_messages").value
-            messages = array_mess[0] + ":" + array_mess[1] + messages;
+            messages += array_mess[0] + "=> " + array_mess[1];
             document.getElementById("input_messages").value = messages
         }
     };
