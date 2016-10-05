@@ -1,13 +1,25 @@
-<form action="registration_handler" method="post">
-  <input type="hidden"
+<%= content_tag :h2, "Registration form", :class=>"form-signin-heading" %>
+<%= content_tag :div, :class=>"container" do -%>
+  <%= form_tag "/registration_handler", :method=>"post",
+                                        :class=>"form-signin" do %>
+    <input type="hidden"
          name=<%=request_forgery_protection_token.to_s%>
                  value=<%=form_authenticity_token%> />
 
-  Name:<input type="text" name="user_name" value=""/>
-  <br>
-  Login:<input type="text" name="user_login" value=""/>
-  <br>
-  Password:<input type="password" name="user_password" value=""/>
-  <br>
-  <input type="submit" name="ok" value="send"/>
-</form>
+      <%= label_tag(:name, "Name", :class=>"sr-only") %>
+      <%= text_field_tag(:name, nil, :class=>"form-control",
+                         :placeholder=>"Name", :required=>"",
+                         :autofocus=>"", :type=>"login") %>
+
+      <%= label_tag(:login, "Login", :class=>"sr-only") %>
+      <%= text_field_tag(:login, nil, :class=>"form-control",
+                         :placeholder=>"Login", :required=>"",
+                         :autofocus=>"", :type=>"login") %>
+
+      <%= label_tag(:password, "Password", :class=>"sr-only") %>
+      <%= text_field_tag(:password, nil, :class=>"form-control",
+                         :placeholder=>"Password", :required=>"",
+                         :type=>"password") %>
+      <%= button_tag "Send", :class=>"btn btn-lg btn-primary btn-block" %>
+   <% end -%>
+  <% end -%>

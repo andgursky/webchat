@@ -1,7 +1,14 @@
-<%= form_tag("/login_handler", method: "post") do %>
-    <%= label_tag(:login, "Login:") %>
-    <%= text_field_tag(:login) %>
-    <%= label_tag(:password, "Password:") %>
-    <%= text_field_tag(:password) %>
-    <%= submit_tag("send") %>
-<% end %>
+<%= content_tag :div, :class=>"container" do -%>
+  <%= form_tag("/login_handler", method: "post", :class=>"form-signin") do %>
+    <%= content_tag :h2, "Please sign in", :class=>"form-signin-heading" %>
+    <%= label_tag(:login, "User name", :class=>"sr-only") %>
+    <%= text_field_tag(:login, nil, :class=>"form-control",
+                       :placeholder=>"User name", :required=>"",
+                       :autofocus=>"", :type=>"login") %>
+    <%= label_tag(:password, "Password", :class=>"sr-only") %>
+    <%= text_field_tag(:password, nil, :class=>"form-control",
+                       :placeholder=>"Password", :required=>"",
+                       :type=>"password") %>
+      <%= button_tag "Sign in", :class=>"btn btn-lg btn-primary btn-block" %>
+  <% end %>
+<% end -%>

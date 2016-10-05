@@ -1,4 +1,11 @@
-<h1>Welcome to our chat</h1>
-<a href="registration">Registration</a>
-<br>
-<a href="login">Login</a>
+<%= content_tag :h1, "Welcome to our chat", :class=>"form-signin-heading" %>
+<%= content_tag :nav, 'aria-label'=>"" do -%>
+  <%= content_tag :ul, :class=>"pager" do -%>
+    <%= content_tag :li do -%>
+      <%= link_to "Registration", "registration" %>
+    <% end -%>
+    <%= content_tag :li do -%>
+      <%= link_to "Login", "login" %>
+    <% end -%>
+  <% end -%>
+<% end -%>
