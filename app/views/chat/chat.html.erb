@@ -30,14 +30,12 @@
            document.getElementById("active_users").value = array_mess[1];
         }
         else if(array_mess[0]=="broadcast"){
-            var messages = document.getElementById("input_messages").value
-            messages += name + ": " + array_mess[1];
-            document.getElementById("input_messages").value = messages
+            var messages = name + ": " + array_mess[1];
+            addMessage(messages);
         }
         else{
-            var messages = document.getElementById("input_messages").value
-            messages += array_mess[0] + "=> " + array_mess[1];
-            document.getElementById("input_messages").value = messages
+            var messages = array_mess[0] + "=> " + array_mess[1];
+            addMessage(messages);
         }
     };
 
@@ -56,6 +54,33 @@
     function send_list(){
         socket.send("list:");
     };
+
+    function hasVertScrollbar(elem)
+    {
+      //see if there is a scrollbar, return true if there is
+      return elem.clientHeight < elem.scrollHeight;
+    }
+
+    function addMessage(str) {
+      var textarea = document.getElementById("input_messages");
+      //remove all of the padding if there
+      var val = textarea.value.replace(/^\n+/,"");
+      //update the value with the new message
+      val += (new Date()).toLocaleTimeString() + ": " + str;
+      textarea.value = val;
+      //Create a loop where we add a line break, Loop until we have a scrollbar
+      var padding = [];
+      while (!hasVertScrollbar(textarea)) {
+         padding.push("\n");
+         textarea.value = "\n" + textarea.value;
+      }
+      //After the loop we have one too many, so chop off the extra
+      padding.pop();
+      //update the textarrea with the padding and updated text
+      textarea.value = padding.join("") + val;
+      //scroll to bottom
+      textarea.scrollTop = textarea.scrollHeight;
+    }
 </script>
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -77,18 +102,17 @@
         <td>
           <form>
             <div class="form-group">
-              <textarea id="input_messages" class="form-control"
-                                            cols="50" rows="20">
-              </textarea>
+              <textarea readonly id="input_messages" cols="50" rows="20"
+                        class="form-control"></textarea>
             </div>
           </form>
         </td>
         <td>
-          <form >
+          <form>
             <div class="form-group">
-             <textarea id="active_users" class="form-control"
-                                          cols="20" rows="20">
-              </textarea>
+              <textarea readonly id="active_users" cols="20" rows="20"
+                        class="form-control"></textarea>
+            </div>
           </form>
         </td>
       </tr>
