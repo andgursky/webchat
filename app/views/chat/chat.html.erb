@@ -58,36 +58,58 @@
     };
 </script>
 
-Hello,<%=@user_login%>
-<br>
-<table>
-  <tr>
-    <td>Messages</td>
-    <td>Active Users</td>
-  </tr>
-  <tr>
-    <td>
-      <form>
-        <textarea id="input_messages" cols="50" rows="30"></textarea>
-      </form>
-    </td>
-    <td>
-      <form>
-        <textarea id="active_users" cols="20" rows="30"></textarea>
-      </form>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <form>
-        <input type="text" id="output_message"/>
-        <input type="button" onclick="send_messages()" value="send"/>
-      </form>
-    </td>
-    <td>
-      <form>
-        <input type="button" onclick="disconnect()" value="exit"/>
-      </form>
-    </td>
-  </tr>
-</table>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <h3><%= @user_login %>
+    <%= button_tag "exit", :onclick=>"disconnect()",
+    :class=>"btn btn-default navbar-btn", :value=>"exit" %></h3>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="table-responsive">
+    <table class="table-borderless">
+      <tr>
+        <th class="title">Messages</th>
+        <th class="title">Active Users</th>
+      </tr>
+      <tr>
+        <td>
+          <form>
+            <div class="form-group">
+              <textarea id="input_messages" class="form-control"
+                                            cols="50" rows="20">
+              </textarea>
+            </div>
+          </form>
+        </td>
+        <td>
+          <form >
+            <div class="form-group">
+             <textarea id="active_users" class="form-control"
+                                          cols="20" rows="20">
+              </textarea>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <form class="row">
+            <div class="col-lg-6">
+              <div class="input-group">
+                <input type="text" id="output_message"
+                                   class="form-control"
+                                   placeholder="Type message..."/>
+                <span class="input-group-btn">
+                  <input type="button" onclick="send_messages()"
+                                       class="btn btn-primary"
+                                       value="send" />
+                </span>
+              </div>
+            </div>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
