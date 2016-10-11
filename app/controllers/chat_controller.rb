@@ -38,7 +38,7 @@ class ChatController < ApplicationController
           users.each{ |user| output = output + user + "\n" }
           client_sock.send_data(output)
         elsif(array_mess[0]=="disconnect")
-          name = $dict_users.index(client_sock)
+          name = $dict_users.key(client_sock)
           $dict_users.delete(name)
         elsif(receiver_sock==nil && mess && receiver)
           sender_client = Client.where(:login => sender).first()
