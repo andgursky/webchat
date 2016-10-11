@@ -83,14 +83,7 @@
     }
 </script>
 
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <h3><%= @user_login %>
-    <%= button_tag "exit", :onclick=>"disconnect()",
-    :class=>"btn btn-default navbar-btn", :value=>"exit" %></h3>
-  </div>
-</nav>
-
+<%= render "shared/navbar" %>
 <div class="container">
   <div class="table-responsive">
     <table class="table-borderless">

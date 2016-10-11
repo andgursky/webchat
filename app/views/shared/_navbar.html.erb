@@ -1,0 +1,10 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+      <h7 class="navbar-brand">WebChat</h7>
+      <% if @user_login %>
+        <h3><%= @user_login %>
+        <%= button_tag "exit", :onclick=>"disconnect()",
+        :class=>"btn btn-default navbar-btn", :value=>"exit" %></h3>
+      <% end %>
+  </div>
+</nav>
