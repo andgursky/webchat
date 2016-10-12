@@ -6,16 +6,10 @@
     socket.onopen = function() {
         socket.send("name:" + name);
         timeout = setInterval(send_list, 1000);
-        alert("connect.");
     };
 
     socket.onclose = function(event) {
-        if (event.wasClean) {
-            alert('close');
-        } else {
-            alert('lose');
-            alert('Code: ' + event.code + ' reas: ' + event.reason);
-        }
+          window.location.href = "/";
     };
 
     socket.onerror = function(error) {
