@@ -1,5 +1,6 @@
 <script type="text/javascript">
-    var socket = new WebSocket("ws://127.0.0.1:3000/chat_handler");
+    var socket = new WebSocket("wss://"+window.location.host+"/chat_handler/");
+
     var timeout = null;
     var name = "<%=@user_login%>"
 
