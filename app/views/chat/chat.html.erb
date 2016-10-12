@@ -3,13 +3,14 @@
     var timeout = null;
     var name = "<%=@user_login%>"
 
+    function onSubmit() {
+      send_messages();
+      return false;
+    }
+
     socket.onopen = function() {
         socket.send("name:" + name);
         timeout = setInterval(send_list, 1000);
-    };
-
-    socket.onclose = function(event) {
-          window.location.href = "/";
     };
 
     socket.onerror = function(error) {
@@ -36,13 +37,16 @@
     function send_messages(){
          var mess = document.getElementById("output_message").value;
          document.getElementById("output_message").value = "";
-         socket.send(mess);
+         if (mess != "") {
+           socket.send(mess);
+         }
     };
 
     function disconnect(){
           socket.send("disconnect:");
           clearInterval(timeout);
           socket.close();
+          window.location.href = "/";
     };
 
     function send_list(){
@@ -75,6 +79,7 @@
       //scroll to bottom
       textarea.scrollTop = textarea.scrollHeight;
     }
+
 </script>
 
 <%= render "shared/navbar" %>
@@ -105,7 +110,8 @@
       </tr>
       <tr>
         <td>
-          <form class="row">
+          <form id="idUserFrm" class="row" method="post" 
+            onsubmit="return onSubmit()">
             <div class="col-lg-6">
               <div class="input-group">
                 <input type="text" id="output_message"
