@@ -53,7 +53,7 @@ class ChatController < ApplicationController
           if(receiver_sock!=nil && mess && receiver)
             message = sender + ":" + array_mess[1] + "\n"
           else
-            message = "broadcast:" + array_mess[0] + "\n"
+            message = "broadcast:"+ sender + ':' + array_mess[0] + "\n"
           end
           sockets.each{ |socket| socket.send_data(message) }
         end
