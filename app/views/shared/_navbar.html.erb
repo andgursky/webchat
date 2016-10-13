@@ -1,8 +1,8 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
-      <h7 class="navbar-brand">Web Chat</h7>
+    <%= link_to "Web Chat", root_path, :class=>"navbar-brand" %>
       <% if @user_login %>
-        <h3><%= @user_login %>
+        <h3 class="navbar-text"><%= @user_login %>
         <%= button_tag "exit", :onclick=>"disconnect()",
         :class=>"btn btn-default navbar-btn", :value=>"exit" %></h3>
       <% end %>
